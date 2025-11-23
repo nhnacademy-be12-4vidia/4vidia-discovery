@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: 4vidia-discovery
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+server:
+  port: 10465
