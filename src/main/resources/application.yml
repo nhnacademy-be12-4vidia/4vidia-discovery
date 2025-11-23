@@ -8,4 +8,4 @@ eureka:
     fetch-registry: false
 
 server:
-  port: 10465
+  port: 8080
