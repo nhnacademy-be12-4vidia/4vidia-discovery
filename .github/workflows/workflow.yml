@@ -27,12 +27,12 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: baejongto
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: 도커 이미지 빌드와 푸시
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/api-gateway-test:latest .
-          docker push ghcr.io/${{ github.repository_owner }}/api-gateway-test:latest
+          docker build -t ghcr.io/${{ github.repository_owner }}/4vidia-discovery:latest .
+          docker push ghcr.io/${{ github.repository_owner }}/4vidia-discovery:latest
           echo "빌드완료"
 
       - name: 서버 배포
@@ -41,6 +41,8 @@ jobs:
           GH_TOKEN: ${{ secrets.NEW_TOKEN }}
           GH_OWNER: ${{ github.repository_owner }}
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ADMIN_ID: ${{ secrets.ADMIN_ID }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
         with:
           host: s2.java21.net
           username: be12-team4
