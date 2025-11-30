@@ -1,5 +1,6 @@
 package com.nhnacademy._vidiadiscovery.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -16,6 +17,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Value("${ADMIN_ID}")
+    private String adminId;
+
+    @Value("${ADMIN_PASSWORD}")
+    private String adminPassword;
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -34,8 +41,8 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails admin = User.builder()
-                .username(System.getenv("ADMIN_ID"))
-                .password(bCryptPasswordEncoder().encode(System.getenv("ADMIN_PASSWORD")))
+                .username(adminId)
+                .password(bCryptPasswordEncoder().encode(adminPassword))
                 .roles("ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(admin);
