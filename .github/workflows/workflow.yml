@@ -54,6 +54,6 @@ jobs:
             echo $GH_TOKEN | docker login ghcr.io -u baejongto --password-stdin
             cd ~
             
-            echo "Starting 4vidia-discovery-1"
+            echo "Deploy 4vidia-discovery-1"
             docker compose pull 4vidia-discovery-1
             docker compose up -d 4vidia-discovery-1

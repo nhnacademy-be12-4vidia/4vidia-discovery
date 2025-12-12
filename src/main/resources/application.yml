@@ -1,11 +1,18 @@
 spring:
   application:
-    name: 4vidia-discovery
+    name: ${EUREKA_INSTANCE_HOSTNAME} #4vidia-discovery
 
 eureka:
+  instance:
+    hostname: ${EUREKA_INSTANCE_HOSTNAME}
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone:
+        - http://${ADMIN_ID}:${ADMIN_PASSWORD}@4vidia-discovery-1:8080/eureka/
+        - http://${ADMIN_ID}:${ADMIN_PASSWORD}@4vidia-discovery-2:8080/eureka/
 
 server:
   port: 8080
+
