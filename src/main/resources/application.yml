@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ${EUREKA_INSTANCE_HOSTNAME} #4vidia-discovery
+    name: 4vidia-discovery #4vidia-discovery
 
 eureka:
   instance:
