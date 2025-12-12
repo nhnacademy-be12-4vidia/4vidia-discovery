@@ -57,3 +57,9 @@ jobs:
             echo "Deploy 4vidia-discovery-1"
             docker compose pull 4vidia-discovery-1
             docker compose up -d 4vidia-discovery-1
+            
+            echo "Deploy 4vidia-discovery-2"
+            docker compose pull 4vidia-discovery-2
+            docker compose up -d 4vidia-discovery-2
+            
+            
