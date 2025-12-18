@@ -5,9 +5,11 @@ spring:
 eureka:
   instance:
     hostname: ${EUREKA_INSTANCE_HOSTNAME}
+  server:
+    eviction-interval-timer-in-ms: 30000
   client:
     register-with-eureka: true
-    fetch-registry: true
+    fetch-regiㅗtry: true
     service-url:
       defaultZone: http://${ADMIN_ID}:${ADMIN_PASSWORD}@${EUREKA_DEFAULT_ZONE}:8080/eureka/
 
