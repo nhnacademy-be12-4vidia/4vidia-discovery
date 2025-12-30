@@ -51,15 +51,46 @@ jobs:
           envs: GH_TOKEN,GH_OWNER,SSH_PRIVATE_KEY,ADMIN_ID,ADMIN_PASSWORD
           script_stop: true
           script: |
+            set -e
             echo $GH_TOKEN | docker login ghcr.io -u baejongto --password-stdin
             cd ~
-            
-            echo "Deploy 4vidia-discovery-1"
-            docker compose pull 4vidia-discovery-1
+
+            # 1. Pull latest 이미지
+            echo "Pulling 4vidia-discovery images..."
+            docker compose pull 4vidia-discovery-1 4vidia-discovery-2
+
+            # 2. Eureka 1번 컨테이너 재시작
+            echo "Restarting 4vidia-discovery-1..."
             docker compose up -d 4vidia-discovery-1
-            
-            echo "Deploy 4vidia-discovery-2"
-            docker compose pull 4vidia-discovery-2
+            sleep 15
+
+            echo "Checking 4vidia-discovery-1 health..."
+            HEALTH_CHECK_COUNT=0
+            while [ $HEALTH_CHECK_COUNT -lt 12 ]; do
+              if curl -s http://localhost:8761/actuator/health | grep -q '"status":"UP"'; then
+                echo "4vidia-discovery-1 is UP"
+                break
+              fi
+              echo "Retry $((HEALTH_CHECK_COUNT+1))..."
+              sleep 5
+              HEALTH_CHECK_COUNT=$((HEALTH_CHECK_COUNT+1))
+            done
+
+            # 3. Eureka 2번 컨테이너 재시작
+            echo "Restarting 4vidia-discovery-2..."
             docker compose up -d 4vidia-discovery-2
-            
-            
+            sleep 15
+
+            echo "Checking 4vidia-discovery-2 health..."
+            HEALTH_CHECK_COUNT=0
+            while [ $HEALTH_CHECK_COUNT -lt 12 ]; do
+              if curl -s http://localhost:8762/actuator/health | grep -q '"status":"UP"'; then
+                echo "4vidia-discovery-2 is UP"
+                break
+              fi
+              echo "Retry $((HEALTH_CHECK_COUNT+1))..."
+              sleep 5
+              HEALTH_CHECK_COUNT=$((HEALTH_CHECK_COUNT+1))
+            done
+
+            echo "🚀 4vidia-discovery HA deployment completed!"
