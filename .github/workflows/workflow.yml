@@ -67,7 +67,7 @@ jobs:
             echo "Checking 4vidia-discovery-1 health..."
             HEALTH_CHECK_COUNT=0
             while [ $HEALTH_CHECK_COUNT -lt 12 ]; do
-              if curl -s http://localhost:8761/actuator/health | grep -q '"status":"UP"'; then
+              if curl -s http://${ADMIN_ID}:${ADMIN_PASSWORD}@localhost:10465/actuator/health | grep -q '"status":"UP"'; then
                 echo "4vidia-discovery-1 is UP"
                 break
               fi
@@ -84,7 +84,7 @@ jobs:
             echo "Checking 4vidia-discovery-2 health..."
             HEALTH_CHECK_COUNT=0
             while [ $HEALTH_CHECK_COUNT -lt 12 ]; do
-              if curl -s http://localhost:8762/actuator/health | grep -q '"status":"UP"'; then
+              if curl -s http://${ADMIN_ID}:${ADMIN_PASSWORD}@localhost:10466/actuator/health | grep -q '"status":"UP"'; then
                 echo "4vidia-discovery-2 is UP"
                 break
               fi
