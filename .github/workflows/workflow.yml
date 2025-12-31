@@ -62,7 +62,7 @@ jobs:
             # 2. Eureka 1번 컨테이너 재시작
             echo "Restarting 4vidia-discovery-1..."
             docker compose up -d 4vidia-discovery-1
-            sleep 15
+            sleep 30
 
             echo "Checking 4vidia-discovery-1 health..."
             HEALTH_CHECK_COUNT=0
@@ -80,7 +80,7 @@ jobs:
             # 3. Eureka 2번 컨테이너 재시작
             echo "Restarting 4vidia-discovery-2..."
             docker compose up -d 4vidia-discovery-2
-            sleep 15
+            sleep 30
 
             echo "Checking 4vidia-discovery-2 health..."
             HEALTH_CHECK_COUNT=0
