@@ -23,6 +23,7 @@ public class SecurityConfig {
     @Value("${ADMIN_PASSWORD}")
     private String adminPassword;
 
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
